@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const axios = require('axios');
 const handlerProcess = require('../utils/handler.process');
+const { checkTokenMiddleware } = require('../middleware/auth');
 
 // GET /api/v1/process/
-router.get('/', (req, res) => {
+router.get('/', checkTokenMiddleware, (req, res) => {
     axios.get(`${handlerProcess()}`).then((response) => {
         res.send(response.data);
     }).catch((error) => {
@@ -15,7 +16,7 @@ router.get('/', (req, res) => {
 });
 
 // GET /api/v1/process/:id
-router.get('/:id', (req, res) => {
+router.get('/:id', checkTokenMiddleware, (req, res) => {
     axios.get(`${handlerProcess()}` + req.params.id).then((response) => {
         res.send(response.data);
     }).catch((error) => {
@@ -27,7 +28,7 @@ router.get('/:id', (req, res) => {
 });
 
 // POST /api/v1/process/
-router.post('/', function(req, res, ) {
+router.post('/', checkTokenMiddleware,  function(req, res, ) {
     axios.post(`${handlerProcess()}`, req.body).then((response) => {
         res.send(response.data);
     }).catch((error) => {
@@ -39,7 +40,7 @@ router.post('/', function(req, res, ) {
 });
 
 // PUT /api/v1/process/:id
-router.put('/:id', function(req, res, ) {
+router.put('/:id', checkTokenMiddleware, function(req, res, ) {
     axios.put(`${handlerProcess()}` + req.params.id, req.body).then((response) => {
         res.send(response.data);
     }).catch((error) => {
@@ -51,7 +52,7 @@ router.put('/:id', function(req, res, ) {
 });
 
 // DELETE /api/v1/process/:id
-router.delete('/:id', function(req, res, ) {
+router.delete('/:id', checkTokenMiddleware, function(req, res, ) {
     axios.delete(`${handlerProcess()}` + req.params.id).then((response) => {
         res.send(response.data);
     }).catch((error) => {

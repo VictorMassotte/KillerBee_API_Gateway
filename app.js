@@ -10,6 +10,7 @@ var logger = require('morgan');
 var processRouter = require ('./routes/process');
 var freezbeRouter = require('./routes/freezbe');
 var ingredientsRouter = require('./routes/ingredients');
+var authRouter = require('./routes/auth');
 
 
 var app = express();
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(`${process.env.API_URL}process/`, processRouter);
 app.use(`${process.env.API_URL}freezbe/`, freezbeRouter);
 app.use(`${process.env.API_URL}ingredients/`, ingredientsRouter);
+app.use(`${process.env.API_URL}auth/`, authRouter);
 
 app.listen(process.env.PORT, () => console.log('Server app listening on port ' + process.env.PORT));
 

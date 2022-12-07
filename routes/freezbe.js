@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const axios = require('axios');
 const handlerFreezbe = require('../utils/handler.freezbe');
+const { checkTokenMiddleware } = require('../middleware/auth');
 
 // GET /api/v1/freezbe/
-router.get('/', (req, res) => {
+router.get('/', checkTokenMiddleware, (req, res) => {
     axios.get(`${handlerFreezbe()}`).then((response) => {
         res.send(response.data);
     }).catch((error) => {
@@ -15,7 +16,7 @@ router.get('/', (req, res) => {
 });
 
 // GET /api/v1/freezbe/:id
-router.get('/:id', (req, res) => {
+router.get('/:id', checkTokenMiddleware, (req, res) => {
     axios.get(`${handlerFreezbe()}` + req.params.id).then((response) => {
         res.send(response.data);
     }).catch((error) => {
@@ -27,7 +28,7 @@ router.get('/:id', (req, res) => {
 });
 
 // POST /api/v1/freezbe/
-router.post('/', function(req, res, ) {
+router.post('/', checkTokenMiddleware, function(req, res, ) {
     axios.post(`${handlerFreezbe()}`, req.body).then((response) => {
         res.send(response.data);
     }).catch((error) => {
@@ -39,7 +40,7 @@ router.post('/', function(req, res, ) {
 });
 
 // PUT /api/v1/freezbe/:id
-router.put('/:id', function(req, res, ) {
+router.put('/:id', checkTokenMiddleware, function(req, res, ) {
     axios.put(`${handlerFreezbe()}` + req.params.id, req.body).then((response) => {
         res.send(response.data);
     }).catch((error) => {
@@ -51,7 +52,7 @@ router.put('/:id', function(req, res, ) {
 });
 
 // DELETE /api/v1/freezbe/:id
-router.delete('/:id', function(req, res, ) {
+router.delete('/:id', checkTokenMiddleware, function(req, res, ) {
     axios.delete(`${handlerFreezbe()}` + req.params.id).then((response) => {
         res.send(response.data);
     }).catch((error) => {
